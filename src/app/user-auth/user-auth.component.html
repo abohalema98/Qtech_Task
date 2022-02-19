@@ -1,0 +1,36 @@
+<br>
+<br>
+<br>
+<br>
+<br>
+<div class="container">
+  <div class="row">
+    <div class="col"></div>
+    <div class="col">
+      <table class="table table-light table-bordered table-hover table-sm text-center">
+        <thead>
+          <tr>
+            <th>USER ID</th>
+            <th>USER NAME</th>
+            <th>EMAIL</th>
+            <th>PASSWORD</th>
+            <th>Control</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of UserList">
+            <td scope="row">{{user.UserID}}</td>
+            <td>{{user.UserName}}</td>
+            <td>{{user.Email}}</td>
+            <td>{{user.Password}}</td>
+            <td>
+              <input type="button" class="btn btn-sm btn-primary p-2 " value="Update" routerLink="/Edit/{{user.UserID}}">
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="col"></div>
+  </div>
+</div>
+<router-outlet></router-outlet>

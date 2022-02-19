@@ -1,0 +1,52 @@
+<br>
+<br>
+<br>
+
+<br>
+<br>
+<section>
+  <div class="container">
+    <div class="row">
+      <div class="col"></div>
+      <div class="col">
+        <form style="border: 1px solid black;border-radius: 10px;" class="form w-auto fadeInDown"
+          [formGroup]="EditForm" #form="ngForm" (ngSubmit)="OnEdit(form)">
+          <legend class="lead text-center">
+            Update User</legend>
+          &nbsp;
+          <div class="md-form">
+            <input type="text" class="form-control" formControlName="UserName" placeholder="User Name" required>
+             <span class="text-danger"
+              *ngIf="(FormControl.UserName.touched) && FormControl.UserName.errors?.required">
+              User Name is required
+            </span>
+          </div>
+          &nbsp;
+
+          <div class="md-form">
+            <input type="email" class="form-control" formControlName="Email" placeholder="Email" required>
+            <span class="text-danger"
+            *ngIf="(FormControl.Email.touched) && FormControl.Email.errors?.required">
+            Email is required
+          </span>
+          </div>
+          &nbsp;
+          <div class="md-form">
+            <input type="text" class="form-control" formControlName="Password" digits placeholder="Password" required>
+            <span class="text-danger"
+            *ngIf="(FormControl.Password.touched) && FormControl.Password.errors?.required">
+            Password is required
+          </span>
+          </div>
+          <div class="row">
+            <div class="col-12 text-center">
+              <input type="submit" value="Submit" class="btn btn-info btn-rounded my-3 btn-block "
+                style="width: 200px;border-radius: 30px;" [disabled]="form.invalid">
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="col"></div>
+    </div>
+  </div>
+</section>

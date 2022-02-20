@@ -1,21 +1,25 @@
 let router = require('express').Router();
 let bcrypt = require("bcrypt");
 let jwt = require("jsonwebtoken");
-const { body, validationResult } = require('express-validator');
-const UserValidation = require("../Validation/validations")
+const { registerValidation, loginValidation } = require("../Validation/validations")
 
 const User = require('../Models/user')
 
 
 router.post("/login", async (req, res) => {
+    const body = req.body;
+    const { error } = loginValidation(body);
+    if (error) {
+        return res.status(400).send(error.details[0].message)
+    };
 
 
+    // checking if the email exists in the DB
     const loginUser = await User.findAll({ where: { Email: req.body.Email } })
-
-    // res.send(loginUser)
 
     if (loginUser == false) { return res.status(400).send(`email doen't  exists `) }
 
+    //checking if the password is correct 
     const validPassword = await bcrypt.compare(req.body.Password, loginUser[0].Password)
 
     if (!validPassword) {
@@ -34,6 +38,13 @@ router.post("/login", async (req, res) => {
 
 router.post("/register", async (req, res) => {
     const body = req.body;
+
+    const { error } = registerValidation(body);
+    if (error) {
+        return res.status(400).send(error.details[0].message)
+    };
+
+    // checking if the user's email already exists in the DB
     const emailExists = await User.findAll({ where: { Email: body.Email } })
 
     const salt = await bcrypt.genSalt(10)
